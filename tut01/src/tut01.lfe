@@ -24,11 +24,11 @@
         (init-args '())
         (genserver-opts '()))
   (gen_server:start
-     server-name callback-module init-args genserver-opts)))
+    server-name callback-module init-args genserver-opts)))
 
 (defun echo (message)
   (gen_server:call
-     (server-name) `#(msg ,message)))
+    (server-name) `#(msg ,message)))
 
 ;;;===================================================================
 ;;; gen_server callbacks
