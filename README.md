@@ -18,20 +18,26 @@ $ make repl
 ```
 
 ```lisp
-> (tut01:start_link)
+> (tut01:start)
 #(ok <0.32.0>)
 > (tut01:echo "Hey there")
 #(msg "Hey there")
 ok
 ```
 
-## 2 - Organization and State
+## 2 - Splitting API and Callbacks
 
 ```bash
 $ cd tut02
+$ ln -s ../tut01/deps .
 $ make repl
 ```
 
 ```lisp
-
+> (tut02:start)
+#(ok <0.32.0>)
+> (tut02:echo "Another test ...")
+#(msg "Another test ...")
+ok
 ```
+
