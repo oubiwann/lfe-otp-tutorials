@@ -1,7 +1,7 @@
 (defmodule tut01
   (behaviour gen_server)
   ;; API
-  (export (start_link 0)
+  (export (start 0)
           (echo 1))
   ;; gen_server callbacks
   (export (init 1)
@@ -18,12 +18,12 @@
 ;;; API
 ;;;===================================================================
 
-(defun start_link ()
+(defun start ()
   (let ((server-name `#(local ,(server-name)))
         (callback-module (MODULE))
         (init-args '())
         (genserver-opts '()))
-  (gen_server:start_link
+  (gen_server:start
      server-name callback-module init-args genserver-opts)))
 
 (defun echo (message)
