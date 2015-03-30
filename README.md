@@ -10,7 +10,9 @@ Each tutorial is its own mini-project, complete with source code, ``Makefile``,
 etc. As such, there are initial steps you will take with each tutorial (e.g.,
 downloading dependencies and compileing the source).
 
-## 1 - Echo Server: Intro to OTP
+## Intro to OTP: Servers
+
+### 1 - Simple Echo Server
 
 ```bash
 $ cd tut01
@@ -25,7 +27,7 @@ $ make repl
 ok
 ```
 
-## 2 - Splitting API and Callbacks
+### 2 - Splitting API and Callbacks
 
 ```bash
 $ cd tut02
@@ -41,7 +43,7 @@ $ make repl
 ok
 ```
 
-## 3 - State
+### 3 - State
 
 ```bash
 $ cd tut03
@@ -77,4 +79,20 @@ Passed message: #(msg "Testing ...")
 New State: #(state 6)
 ok
 ```
+
+## Supervisors
+
+TBD
+
+## Applications
+
+TBD
+
+## Finite State Machines
+
+TBD
+
+## Events
+
+TBD
 
