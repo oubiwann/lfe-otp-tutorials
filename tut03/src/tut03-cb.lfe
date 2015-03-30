@@ -20,12 +20,6 @@
     (lfe_io:format "New State: ~p~n" `(,new-state))
     `#(reply ok ,new-state)))
 
-(defun handle_cast (message state)
-  `#(noreply ,state))
-
-(defun handle_info (info state)
-  `#(noreply ,state))
-
 (defun terminate (reason state)
   'ok)
 

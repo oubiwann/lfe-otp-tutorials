@@ -15,12 +15,6 @@
   (lfe_io:format "~p~n" `(,message))
   `#(reply ok ,state))
 
-(defun handle_cast (message state)
-  `#(noreply ,state))
-
-(defun handle_info (info state)
-  `#(noreply ,state))
-
 (defun terminate (reason state)
   'ok)
 
