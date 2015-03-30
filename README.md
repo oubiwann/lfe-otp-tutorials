@@ -41,3 +41,40 @@ $ make repl
 ok
 ```
 
+## 3 - State
+
+```bash
+$ cd tut03
+$ ln -s ../tut01/deps .
+$ make repl
+```
+
+```lisp
+> (tut03:start)
+#(ok <0.32.0>)
+> (tut03:echo "Testing the 3rd ...")
+Passed message: #(msg "Testing the 3rd ...")
+New State: #(state 1)
+ok
+> (tut03:echo "Testing ...")
+Passed message: #(msg "Testing ...")
+New State: #(state 2)
+ok
+> (tut03:echo "Testing ...")
+Passed message: #(msg "Testing ...")
+New State: #(state 3)
+ok
+> (tut03:echo "Testing ...")
+Passed message: #(msg "Testing ...")
+New State: #(state 4)
+ok
+> (tut03:echo "Testing ...")
+Passed message: #(msg "Testing ...")
+New State: #(state 5)
+ok
+> (tut03:echo "Testing ...")
+Passed message: #(msg "Testing ...")
+New State: #(state 6)
+ok
+```
+
