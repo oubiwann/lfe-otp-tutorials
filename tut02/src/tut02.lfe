@@ -1,6 +1,6 @@
 (defmodule tut02
   (behaviour gen_server)
-  (export (start_link 0)
+  (export (start 0)
           (echo 1)))
 
 (defun server-name ()
