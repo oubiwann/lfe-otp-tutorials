@@ -1,5 +1,11 @@
 # LFE OTP Tutorials
 
+## Introduction
+
+This repository contains the code for the series of LFE tutorials on OTP which
+were announced with [this blog post](http://blog.lfe.io/tutorials/2015/05/23/1720-new-series-lfe-otp-tutorials/),
+with more being linked from there as they are completed.
+
 ## Getting Started
 
 * Make sure Erlang is installed and ``erl`` is in your ``$PATH``.
@@ -10,7 +16,15 @@ Each tutorial is its own mini-project, complete with source code, ``Makefile``,
 etc. As such, there are initial steps you will take with each tutorial (e.g.,
 downloading dependencies and compileing the source).
 
+
 ## Intro to OTP: Servers
+
+### 0 - Closures and Message-passing Processes
+
+```bash
+$ cd tut00
+$ make repl
+```
 
 ### 1 - Simple Echo Server
 
@@ -20,33 +34,50 @@ $ make repl
 ```
 
 ```lisp
-> (tut01:start)
+> (set `#(ok ,pid) (tut01:start))
 #(ok <0.32.0>)
-> (tut01:echo "Hey there")
-#(msg "Hey there")
+> (tut01:echo pid "What's up?")
+#(msg "What's up?")
 ok
 ```
 
-### 2 - Splitting API and Callbacks
+### 2 - (Local) Named Servers
 
 ```bash
 $ cd tut02
 $ ln -s ../tut01/deps .
 $ make repl
-```
+
+TBD
+
+### 3 - (global) Named Servers
+
+```bash
+$ cd tut03
+$ ln -s ../tut03/deps .
+$ make repl
+
+TDB
+
+### 4 - Splitting API and Callbacks
+
+```bash
+$ cd tut04
+$ ln -s ../tut04/deps .
+$ make repl
 
 ```lisp
-> (tut02:start)
+> (tut04:start)
 #(ok <0.32.0>)
-> (tut02:echo "Another test ...")
+> (tut04:echo "Another test ...")
 #(msg "Another test ...")
 ok
 ```
 
-### 3 - State
+### 5 - State
 
 ```bash
-$ cd tut03
+$ cd tut04
 $ ln -s ../tut01/deps .
 $ make repl
 ```
@@ -80,13 +111,15 @@ New State: #(state 6)
 ok
 ```
 
-## Supervisors
+## Distributed LFE
 
-TBD
+### Two Nodes, Same Machine
 
-## Applications
+### Two Nodes, Same LAN
 
-TBD
+### Two Nodes, Same Internet
+
+### All Together Now
 
 ## Finite State Machines
 
@@ -96,3 +129,27 @@ TBD
 
 TBD
 
+## Supervisors
+
+TBD
+
+## Applications
+
+TBD
+
+## Hot-Swapping Code
+
+TBD
+
+## Releases
+
+TBD
+
+## A Complete Example
+
+In the next set of tutorials we will be using what we've learned in all the
+previous tutorials to build -- from the ground up -- a complete distributed
+application. Each decision -- from architecture to behaviour options -- will be
+discussed with nothing left out or gloseed over. By the end of this next series
+you will have everything you need to build your own distributed applications in
+LFE.
