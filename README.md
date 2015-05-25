@@ -29,6 +29,8 @@ $ make repl
 ```lisp
 > (set st (tut00:lambda-state 0))
 #Fun<tut00.0.29422318>
+> (set st (funcall st 'add))
+#Fun<tut00.0.29422318>
 > (funcall st 'amount?)
 1
 ```
