@@ -1,50 +1,29 @@
 (defmodule tut01
   (behaviour gen_server)
-  ;; API
-  (export (start 0)
-          (echo 1))
-  ;; gen_server callbacks
-  (export (init 1)
-          (handle_call 3)
-          (handle_cast 2)
-          (handle_info 2)
-          (terminate 2)
-          (code_change 3)))
+  (export all))
 
-(defun server-name ()
-  'tut01)
+;;; config functions
 
-;;;===================================================================
-;;; API
-;;;===================================================================
+(defun server-name () (MODULE))
+(defun callback-module () 'tut01-callback)
+(defun initial-state () 0)
+(defun register-name () `#(local ,(server-name)))
+
+;;; gen_server implementation
 
 (defun start ()
-  (let ((server-name `#(local ,(server-name)))
-        (callback-module (MODULE))
-        (init-args '())
+  (let ((init-args (initial-state))
         (genserver-opts '()))
-  (gen_server:start
-    server-name callback-module init-args genserver-opts)))
+    (gen_server:start (register-name)
+                      (callback-module)
+                      init-args
+                      genserver-opts)))
 
-(defun echo (message)
-  (gen_server:call
-    (server-name) `#(msg ,message)))
+;;; our server API
 
-;;;===================================================================
-;;; gen_server callbacks
-;;;===================================================================
+(defun add ()
+  (gen_server:cast (server-name) 'add))
 
-(defun init (args)
-  (let ((initial-state '()))
-    `#(ok ,initial-state)))
-
-(defun handle_call (message caller state)
-  (lfe_io:format "~p~n" `(,message))
-  `#(reply ok ,state))
-
-(defun terminate (reason state)
-  'ok)
-
-(defun code_change (old-version state extra)
-  `#(ok ,state))
+(defun amount? ()
+  (gen_server:call (server-name) 'amount))
 
