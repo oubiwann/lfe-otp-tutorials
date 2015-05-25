@@ -26,7 +26,26 @@ $ cd tut00
 $ make repl
 ```
 
-### 1 - Simple Echo Server
+```lisp
+> (set st (tut00:lambda-state 0))
+#Fun<tut00.0.29422318>
+> (funcall st 'amount?)
+1
+```
+
+```lisp
+> (set st (spawn 'tut00 'process-state `(,(self) 0)))
+<0.35.0>
+> (! st 'add)
+add
+> (! st 'amount?)
+amount?
+> (c:flush)
+Shell got 1
+ok
+```
+
+### 1 - Converting simple server to ``gen_server``
 
 ```bash
 $ cd tut01
@@ -34,81 +53,12 @@ $ make repl
 ```
 
 ```lisp
-> (set `#(ok ,pid) (tut01:start))
+> (tut01:start))
 #(ok <0.32.0>)
-> (tut01:echo pid "What's up?")
-#(msg "What's up?")
+> (tut01:add)
 ok
-```
-
-### 2 - (Local) Named Servers
-
-```bash
-$ cd tut02
-$ ln -s ../tut01/deps .
-$ make repl
-
-TBD
-
-### 3 - (global) Named Servers
-
-```bash
-$ cd tut03
-$ ln -s ../tut03/deps .
-$ make repl
-
-TDB
-
-### 4 - Splitting API and Callbacks
-
-```bash
-$ cd tut04
-$ ln -s ../tut04/deps .
-$ make repl
-
-```lisp
-> (tut04:start)
-#(ok <0.32.0>)
-> (tut04:echo "Another test ...")
-#(msg "Another test ...")
-ok
-```
-
-### 5 - State
-
-```bash
-$ cd tut04
-$ ln -s ../tut01/deps .
-$ make repl
-```
-
-```lisp
-> (tut03:start)
-#(ok <0.32.0>)
-> (tut03:echo "Testing the 3rd ...")
-Passed message: #(msg "Testing the 3rd ...")
-New State: #(state 1)
-ok
-> (tut03:echo "Testing ...")
-Passed message: #(msg "Testing ...")
-New State: #(state 2)
-ok
-> (tut03:echo "Testing ...")
-Passed message: #(msg "Testing ...")
-New State: #(state 3)
-ok
-> (tut03:echo "Testing ...")
-Passed message: #(msg "Testing ...")
-New State: #(state 4)
-ok
-> (tut03:echo "Testing ...")
-Passed message: #(msg "Testing ...")
-New State: #(state 5)
-ok
-> (tut03:echo "Testing ...")
-Passed message: #(msg "Testing ...")
-New State: #(state 6)
-ok
+> (tut01:amount?)
+1
 ```
 
 ## Distributed LFE
