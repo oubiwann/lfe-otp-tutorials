@@ -7,17 +7,16 @@
 (defun server-name () (MODULE))
 (defun callback-module () 'tut01-callback)
 (defun initial-state () 0)
+(defun genserver-opts () '())
 (defun register-name () `#(local ,(server-name)))
 
 ;;; gen_server implementation
 
 (defun start ()
-  (let ((init-args (initial-state))
-        (genserver-opts '()))
-    (gen_server:start (register-name)
-                      (callback-module)
-                      init-args
-                      genserver-opts)))
+  (gen_server:start (register-name)
+                    (callback-module)
+                    (initial-state)
+                    (genserver-opts)))
 
 ;;; our server API
 
@@ -27,3 +26,5 @@
 (defun amount? ()
   (gen_server:call (server-name) 'amount))
 
+(defun stop ()
+  (gen_server:call (server-name) 'stop))
