@@ -1,7 +1,7 @@
 (defmodule tut01-callback
   (export all))
 
-;;; config
+;;; config functions
 
 (defun unknown-command () #(error "Unknown command."))
 
