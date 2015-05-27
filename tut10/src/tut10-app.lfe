@@ -13,7 +13,7 @@
   (('phase_3 'normal _args)
    (io:format "Start phase 3 ...~n"))
   ((phase type _args)
-   (io:format "Unknown start phase (type): ~p (~p)~n" `(,phase ,type))))
+   (io:format "Unsupported start phase (type): ~p (~p)~n" `(,phase ,type))))
 
 (defun stop (_state)
   'ok)
