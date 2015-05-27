@@ -118,16 +118,28 @@ true
 
 ## Applications
 
+```lisp
 > (application:start 'tut09)
 ok
 > (supervisor:which_children 'tut09-sup)
 (#(child-3 <0.41.0> supervisor (tut09-child-3))
  #(child-2 <0.40.0> worker (tut09-child-2))
  #(child-1 <0.39.0> worker (tut09-child-1)))
+```
 
 ## Start Phases
 
-TBD
+```lisp
+> (application:start 'tut10)
+Start phase 1 ...
+Start phase 2 ...
+Start phase 3 ...
+ok
+> (supervisor:which_children 'tut10-sup)
+(#(child-3 <0.41.0> supervisor (tut10-child-3))
+ #(child-2 <0.40.0> worker (tut10-child-2))
+ #(child-1 <0.39.0> worker (tut10-child-1)))
+```
 
 ## Nested Applications
 
