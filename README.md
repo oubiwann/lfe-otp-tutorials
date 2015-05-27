@@ -83,7 +83,38 @@ TBD
 
 ## Supervisors
 
-TBD
+```bash
+$ cd tut08
+$ make repl
+```
+
+```lisp
+> (tut08-sup:start)
+#(ok <0.35.0>)
+> (supervisor:which_children 'tut08-sup)
+(#(child-3 <0.38.0> supervisor (tut08-child-3))
+ #(child-2 <0.37.0> worker (tut08-child-2))
+ #(child-1 <0.36.0> worker (tut08-child-1)))
+> (whereis 'tut08-child-1)
+<0.36.0>
+> (tut08-child-1:stop)
+ok
+> (whereis 'tut08-child-1)
+<0.49.0>
+> (supervisor:which_children 'tut08-sup)
+(#(child-3 <0.38.0> supervisor (tut08-child-3))
+ #(child-2 <0.37.0> worker (tut08-child-2))
+ #(child-1 <0.49.0> worker (tut08-child-1)))
+> (supervisor:which_children 'tut08-child-3)
+(#(tut08-grandchild-2 <0.40.0> worker (tut08-grandchild-2))
+ #(tut08-grandchild-1 <0.39.0> worker (tut08-grandchild-1)))
+> (exit (whereis 'tut08-grandchild-2) 'kill)
+true
+> (supervisor:which_children 'tut08-child-3)
+(#(tut08-grandchild-2 <0.54.0> worker (tut08-grandchild-2))
+ #(tut08-grandchild-1 <0.39.0> worker (tut08-grandchild-1)))
+>
+```
 
 ## Applications
 
