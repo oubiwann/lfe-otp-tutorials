@@ -1,4 +1,4 @@
-(defmodule tut01
+(defmodule tut01-server
   (behaviour gen_server)
   (export all))
 
