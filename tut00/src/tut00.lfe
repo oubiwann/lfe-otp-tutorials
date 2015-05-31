@@ -4,14 +4,14 @@
 (defun lambda-state (state-data)
   (lambda (msg)
     (case msg
-      ('add
+      ('inc
         (lambda-state (+ 1 state-data)))
       ('amount?
         state-data))))
 
 (defun process-state (caller state-data)
   (receive
-    ('add
+    ('inc
       (process-state caller (+ 1 state-data)))
     ('amount?
         (! caller state-data)
