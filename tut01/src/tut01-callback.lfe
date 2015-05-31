@@ -11,14 +11,14 @@
   `#(ok ,initial-state))
 
 (defun handle_cast
-  (('add state-data)
-    `#(noreply ,(+ 1 state-data))))
+  (('increment state-data)
+    `#(noreply ,(+ 1 state-data)))
+  (('decrement state-data)
+    `#(noreply ,(- state-data 1))))
 
 (defun handle_call
   (('amount _caller state-data)
     `#(reply ,state-data ,state-data))
-  (('stop _caller state-data)
-    `#(stop shutdown ok state-data))
   ((message _caller state-data)
     `#(reply ,(unknown-command) ,state-data)))
 

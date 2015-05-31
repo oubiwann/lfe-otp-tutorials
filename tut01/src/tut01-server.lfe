@@ -20,11 +20,12 @@
 
 ;;; our server API
 
-(defun add ()
-  (gen_server:cast (server-name) 'add))
+(defun inc ()
+  (gen_server:cast (server-name) 'increment))
+
+(defun dec ()
+  (gen_server:cast (server-name) 'decrement))
 
 (defun amount? ()
   (gen_server:call (server-name) 'amount))
 
-(defun stop ()
-  (gen_server:call (server-name) 'stop))
