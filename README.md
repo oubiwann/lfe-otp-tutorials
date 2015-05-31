@@ -29,7 +29,7 @@ $ make repl
 ```lisp
 > (set st (tut00:lambda-state 0))
 #Fun<tut00.0.29422318>
-> (set st (funcall st 'add))
+> (set st (funcall st 'inc))
 #Fun<tut00.0.29422318>
 > (funcall st 'amount?)
 1
@@ -38,8 +38,8 @@ $ make repl
 ```lisp
 > (set st (spawn 'tut00 'process-state `(,(self) 0)))
 <0.35.0>
-> (! st 'add)
-add
+> (! st 'inc)
+inc
 > (! st 'amount?)
 amount?
 > (c:flush)
@@ -55,9 +55,19 @@ $ make repl
 ```
 
 ```lisp
-> (tut01:start))
-#(ok <0.32.0>)
-> (tut01:add)
+> (tut01-server:start)
+#(ok <0.35.0>)
+> (tut01-server:amount?)
+0
+> (tut01-server:inc)
+ok
+> (tut01-server:amount?)
+1
+> (tut01:start)
+#(ok <0.40.0>)
+> (tut01:amount?)
+0
+> (tut01:inc)
 ok
 > (tut01:amount?)
 1
