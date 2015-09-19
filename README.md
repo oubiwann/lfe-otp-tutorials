@@ -77,11 +77,98 @@ ok
 
 ### Two Nodes, Same Machine
 
+```lfe
+(repl1@cahwsx01)> (net_adm:ping 'repl2@cahwsx01)
+pong
+```
+```lfe
+(repl2@cahwsx01)> (net_adm:ping 'repl1@cahwsx01)
+pong
+```
+```lfe
+(repl1@cahwsx01)> (net_adm:names)
+#(ok (#("repl1" 54162) #("repl2" 54168)))
+(repl1@cahwsx01)> (rpc:call 'repl2@cahwsx01 'math 'pi '())
+3.141592653589793
+(repl1@cahwsx01)> (rpc:multicall 'math 'pi '())
+#((3.141592653589793 3.141592653589793) ())
+(repl1@cahwsx01)> (rpc:parallel_eval '(#(math pi ()) #(math exp (1))))
+(3.141592653589793 2.718281828459045)
+```
+```lfe
+(repl1@cahwsx01)> (defun ackermann
+                    ((0 n) (+ n 1))
+                    ((m 0) (ackermann (- m 1) 1))
+                    ((m n) (ackermann (- m 1) (ackermann m (- n 1)))))
+ackermann
+(repl1@cahwsx01)> (defun ack-server ()
+                    (register 'acksvr (self))
+                    (ack-loop))
+ack-serverack-loop
+(repl1@cahwsx01)> (defun ack-loop ()
+                    (receive
+                      (`#(,pid terminate)
+                        (! pid #(ok server-stopped)))
+                      (`#(,pid ,m ,n)
+                        (! pid (ackermann m n))
+                        (ack-loop))))
+ack-loop
+```
+```lfe
+(repl1@cahwsx01)> (set rem-pid (spawn_link 'repl2@cahwsx01 #'ack-server/0))
+<5881.91.0>
+(repl1@cahwsx01)> (! #(acksvr repl2@cahwsx01) `#(,(self) 0 3))
+#(<0.145.0> 0 3)
+(repl1@cahwsx01)> (! #(acksvr repl2@cahwsx01) `#(,(self) 3 0))
+#(<0.145.0> 3 0)
+(repl1@cahwsx01)> (! #(acksvr repl2@cahwsx01) `#(,(self) 3 3))
+#(<0.145.0> 3 3)
+(repl1@cahwsx01)> (! #(acksvr repl2@cahwsx01) `#(,(self) terminate))
+#(<0.145.0> terminate)
+(repl1@cahwsx01)> (c:flush)
+Shell got 4
+Shell got 5
+Shell got 61
+Shell got {ok,'server-stopped'}
+ok
+```
+
 ### Two Nodes, Same LAN
 
+```lfe
+(repl1@10.0.4.64)> (net_adm:ping 'repl1@10.0.4.181)
+pong
+(repl1@10.0.4.64)>  (net_adm:names "10.0.4.181")
+#(ok (#("repl1" 50123)))
+```
+
+```lfe
+(repl1@10.0.4.181)> (net_adm:ping 'repl1@10.0.4.64)
+pong
+(repl1@10.0.4.181)> (net_adm:names "10.0.4.64")
+#(ok (#("repl1" 54906)))
+(repl1@10.0.4.181)> (rpc:multicall 'math 'pi '())
+#((3.141592653589793 3.141592653589793) ())
+(repl1@10.0.4.181)> (set rem-pid (spawn_link 'repl1@10.0.4.64 #'ack-server/0))
+<6430.54.0>
+(repl1@10.0.4.181)> (! #(acksvr repl1@10.0.4.64) `#(,(self) 0 3))
+#(<0.35.0> 0 3)
+(repl1@10.0.4.181)> (! #(acksvr repl1@10.0.4.64) `#(,(self) 3 0))
+#(<0.35.0> 3 0)
+(repl1@10.0.4.181)> (! #(acksvr repl1@10.0.4.64) `#(,(self) 3 3))
+#(<0.35.0> 3 3)
+(repl1@10.0.4.181)> (! #(acksvr repl1@10.0.4.64) `#(,(self) terminate))
+#(<0.35.0> terminate)
+(repl1@10.0.4.181)> (c:flush)
+Shell got 4
+Shell got 5
+Shell got 61
+Shell got {ok,'server-stopped'}
+ok
+```
 ### Two Nodes, Same Internet
 
-### All Together Now
+Ditto. Seriously.
 
 ## Finite State Machines
 
