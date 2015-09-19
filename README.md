@@ -170,6 +170,8 @@ ok
 
 Ditto. Seriously.
 
+Please be sure to use encryption for all insecure connections (SSH tunnels, VPNs, etc.)
+
 ## Finite State Machines
 
 TBD
